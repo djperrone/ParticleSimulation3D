@@ -1,0 +1,9 @@
+[submodule "ParticleSimulation3D/vendor/spdlog"]
+	path = ParticleSimulation3D/vendor/spdlog
+	url = https://github.com/djperrone/spdlog.git
+[submodule "ParticleSimulation3D/vendor/glm"]
+	path = ParticleSimulation3D/vendor/glm
+	url = https://github.com/djperrone/glm.git
+[submodule "ParticleSimulation3D/vendor/glfw"]
+	path = ParticleSimulation3D/vendor/glfw
+	url = https://github.com/djperrone/glfw.git
