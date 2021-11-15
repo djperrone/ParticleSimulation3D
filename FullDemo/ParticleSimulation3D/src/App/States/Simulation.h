@@ -52,8 +52,8 @@ namespace ParticleSimulation {
 		void InitLighting();
 	private:
 		unsigned int indexCount, sphereVAO;
-		int nrRows = 20;
-		int nrColumns = 20;
+		int nrRows = 5;
+		int nrColumns = 5;
 		float spacing = 2.5;
 	private:
 		unsigned int instanceVBO;

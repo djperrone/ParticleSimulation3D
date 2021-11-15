@@ -9,7 +9,6 @@ ParticleInstancingApp::ParticleInstancingApp()
 	m_Renderer = std::make_unique <Renderer>(*m_Context, *m_Camera);
 	
 	m_Gui = std::make_unique<nova::Gui>(m_Context->GetWindow().Window);
-    m_Context->SetWindowDimensions(800, 600);
     m_Camera->MovementSpeed = 10.0f;
 
 	Init();

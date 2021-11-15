@@ -56,6 +56,12 @@ namespace ParticleSimulation {
 		InitSphere();
 		InitSphereInstanceBuffer();
 		InitLighting();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+        glFrontFace(GL_CW);
 	}
 
 	void Simulation::HandleInput()
