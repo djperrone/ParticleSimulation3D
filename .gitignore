@@ -2,6 +2,8 @@
 **/bin/
 bin-int/
 !vendor/premake/bin/
+!simple/vendor/premake/bin/
+!FullDemo/vendor/premake/bin/
 
 # files
 *.log
