@@ -4,7 +4,6 @@
 #include "Novaura/Renderer/BatchRenderer.h"
 #include <spdlog/spdlog.h>
 #include "Novaura/Renderer/Texture.h"
-#include "Novaura/Renderer/TextLoader.h"
 #include "glfwCallBackWrapper.h"
 #include "Novaura/Input/InputHandler.h"
 #include "Novaura/StateMachine/State.h"

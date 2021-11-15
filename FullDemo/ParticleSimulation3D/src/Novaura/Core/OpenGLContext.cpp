@@ -3,7 +3,6 @@
 
 #include <spdlog/spdlog.h>
 
-#include "Novaura/Renderer/TextLoader.h"
 
 namespace Novaura {
 
