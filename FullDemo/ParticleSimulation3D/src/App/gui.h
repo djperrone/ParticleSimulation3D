@@ -7,6 +7,7 @@
 
 #include "Novaura/Renderer/Shader.h"
 #include "Novaura/Renderer/MaterialData.h"
+#include "Novaura/Renderer/SphereData.h"
 
 namespace nova {
 
@@ -19,7 +20,7 @@ namespace nova {
 		~Gui();
 		
 		void Draw();
-		void Draw(Novaura::Shader& shader, Novaura::MaterialData& materialData);
+		void Draw(Novaura::Shader& shader, Novaura::MaterialData& materialData, Novaura::SphereData& sphereData);
 		void Draw(Novaura::Shader& shader, float& roughness, float& metallic, glm::vec3& albedo);
 		void BeginFrame();
 		void EndFrame();
@@ -47,6 +48,6 @@ namespace nova {
 		bool metallicChanged = false;
 		bool roughnessChanged = false;
 		bool aoChanged = false;
-
+		bool scaleChanged = false;
 	};
 }

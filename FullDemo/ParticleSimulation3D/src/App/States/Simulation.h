@@ -6,7 +6,7 @@
 #include "Novaura/Renderer/MaterialData.h"
 #include "Novaura/Renderer/Shader.h"
 
-
+#include "Novaura/Renderer/SphereData.h"
 //#include "../common.h"
 #include "../gui.h"
 
@@ -41,7 +41,7 @@ namespace ParticleSimulation {
 		glm::mat4* modelMatrices;
 
 		Novaura::MaterialData materialData;
-
+		Novaura::SphereData sphereData;
 
 		std::unique_ptr<Novaura::Shader> m_Shader;
 
@@ -50,11 +50,15 @@ namespace ParticleSimulation {
 		void InitSphereInstanceBuffer();
 		void UpdateSphereVAO();
 		void InitLighting();
+
+		void UpdateModels();
 	private:
 		unsigned int indexCount, sphereVAO;
-		int nrRows = 5;
-		int nrColumns = 5;
+		int nrRows = 10;
+		int nrColumns = 10;
 		float spacing = 2.5;
+		float scale = 1.0f;
+		bool scaleChanged = false;
 	private:
 		unsigned int instanceVBO;
 

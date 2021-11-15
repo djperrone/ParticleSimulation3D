@@ -53,8 +53,11 @@ namespace ParticleSimulation {
 		m_Shader->SetFloat("metallic", materialData.metallic);
 		m_Shader->SetFloat("roughness", materialData.roughness);
 
+
 		InitSphere();
-		InitSphereInstanceBuffer();
+		InitSphereInstanceBuffer();       
+        UpdateSphereVAO();
+
 		InitLighting();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -89,7 +92,9 @@ namespace ParticleSimulation {
 
 		glDrawElementsInstanced(GL_TRIANGLE_STRIP, indexCount, GL_UNSIGNED_INT, 0, amount);
 
-        m_Gui->Draw(*m_Shader, materialData);
+        m_Gui->Draw(*m_Shader, materialData, sphereData);
+
+        UpdateModels();
         m_Gui->EndFrame();
 		
 	}
@@ -210,6 +215,7 @@ namespace ParticleSimulation {
 
         amount = nrRows * nrColumns * nrColumns;
         modelMatrices = new glm::mat4[amount];
+       
         int i = 0;
         glm::mat4 model = glm::mat4(1.0f);
         for (int row = 0; row < nrRows; ++row)
@@ -223,10 +229,10 @@ namespace ParticleSimulation {
 
                     model = glm::mat4(1.0f);
                     model = glm::translate(model, glm::vec3(
-                        (col - (nrColumns / 2)) * spacing,
-                        (row - (nrRows / 2)) * spacing,
-                        (z - (nrRows / 2)) * spacing
-                    )) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+                        (col - (nrColumns / 2)) * sphereData.spacing,
+                        (row - (nrRows / 2)) * sphereData.spacing,
+                        (z - (nrRows / 2)) * sphereData.spacing
+                    )) * glm::scale(glm::mat4(1.0f), glm::vec3(sphereData.scale, sphereData.scale, sphereData.scale));
                     // )) * glm::scale(glm::mat4(1.0f),glm::vec3(0.5f,0.5f,0.5f));
                     modelMatrices[i++] = model;
 
@@ -236,8 +242,7 @@ namespace ParticleSimulation {
 
         glGenBuffers(1, &instanceVBO);
         glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * amount, &modelMatrices[0], GL_STATIC_DRAW);
-        UpdateSphereVAO();
+        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * amount, &modelMatrices[0], GL_DYNAMIC_DRAW);
     }
 
     void Simulation::UpdateSphereVAO()
@@ -268,10 +273,43 @@ namespace ParticleSimulation {
             newPos = lightPositions[i];
             m_Shader->SetUniform3f("lightPositions[" + std::to_string(i) + "]", newPos);
             m_Shader->SetUniform3f("lightColors[" + std::to_string(i) + "]", lightColors[i]);
-
-
-
         }
+    }
+
+    void Simulation::UpdateModels()
+    {
+        if (sphereData.stateChanged)
+        {
+            int i = 0;
+            glm::mat4 model = glm::mat4(1.0f);
+            for (int row = 0; row < nrRows; ++row)
+            {
+                for (int col = 0; col < nrColumns; ++col)
+                {
+                    for (int z = 0; z < nrColumns; ++z)
+                    {
+                        // we clamp the roughness to 0.05 - 1.0 as perfectly smooth surfaces (roughness of 0.0) tend to look a bit off
+                        // on direct lighting.
+
+                        model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(
+                            (col - (nrColumns / 2)) * sphereData.spacing,
+                            (row - (nrRows / 2)) * sphereData.spacing,
+                            (z - (nrRows / 2)) * sphereData.spacing
+                        )) * glm::scale(glm::mat4(1.0f), glm::vec3(sphereData.scale, sphereData.scale, sphereData.scale));
+                        // )) * glm::scale(glm::mat4(1.0f),glm::vec3(0.5f,0.5f,0.5f));
+                        modelMatrices[i++] = model;
+
+                    }
+                }
+            }
+
+            glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * amount, &modelMatrices[0], GL_DYNAMIC_DRAW);
+
+            sphereData.stateChanged = false;
+        }
+        
     }
 
 }

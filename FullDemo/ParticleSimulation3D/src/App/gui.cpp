@@ -76,7 +76,7 @@ namespace nova {
         ImGui::End();
     }
 
-    void Gui::Draw(Novaura::Shader& shader, Novaura::MaterialData& materialData)
+    void Gui::Draw(Novaura::Shader& shader, Novaura::MaterialData& materialData, Novaura::SphereData& sphereData)
     {
 
         static float f = 0.0f;
@@ -86,7 +86,22 @@ namespace nova {
         roughnessChanged = ImGui::SliderFloat("roughness", &materialData.roughness, 0.0f, 1.0f);
         metallicChanged = ImGui::SliderFloat("metallic", &materialData.metallic, 0.0f, 1.0f);
         aoChanged = ImGui::SliderFloat("ao", &materialData.ao, 0.0f, 1.0f);
-        albedoChanged = ImGui::ColorEdit3("albedo", (float*)&materialData.albedo); // Edit 3 floats representing a color         
+        albedoChanged = ImGui::ColorEdit3("albedo", (float*)&materialData.albedo); // Edit 3 floats representing a color        
+
+        bool scaleChanged = ImGui::SliderFloat("scale", &sphereData.scale, 0.0f, 1.0f);
+        bool spacingChanged = ImGui::SliderFloat("spacing", &sphereData.spacing, 0.0f, 10.0f);
+
+       /* materialData.albedo.r = glm::cos(glfwGetTime());
+        materialData.albedo.g = glm::sin(glfwGetTime());
+        materialData.albedo.r < 0.0f ? materialData.albedo.r = 0.0f : materialData.albedo.r = materialData.albedo.r;*/
+       
+       // albedoChanged = true;
+
+
+       // sphereData.spacing = glm::sin(glfwGetTime());
+        sphereData.stateChanged = scaleChanged | spacingChanged;
+       // sphereData.stateChanged = true;
+
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
@@ -117,6 +132,8 @@ namespace nova {
             albedoChanged = false;
             spdlog::info("albedo changed");
         }
+
+
 
         ImGui::End();
     }
