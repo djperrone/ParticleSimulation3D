@@ -54,8 +54,8 @@ namespace ParticleSimulation {
 		void UpdateModels();
 	private:
 		unsigned int indexCount, sphereVAO;
-		int nrRows = 10;
-		int nrColumns = 10;
+		int nrRows = 5;
+		int nrColumns = 5;
 		float spacing = 2.5;
 		float scale = 1.0f;
 		bool scaleChanged = false;
