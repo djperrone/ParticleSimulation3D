@@ -10,6 +10,9 @@
 //#include "../common.h"
 #include "../gui.h"
 
+#include "../Physics/StableFluids.h"
+
+
 
 namespace ParticleSimulation {
 
@@ -36,6 +39,9 @@ namespace ParticleSimulation {
 	private:		
 
 		std::unique_ptr<nova::Gui> m_Gui;
+
+		Physics::FluidCube* cube;
+
 
 		unsigned int amount = 100;
 		glm::mat4* modelMatrices;
