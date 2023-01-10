@@ -65,8 +65,8 @@ namespace ParticleSimulation {
         glCullFace(GL_FRONT);
         glFrontFace(GL_CW);
 
-       cube = Physics::FluidCubeCreate(128, 0, .0001, 1);
-       Physics::Init(cube);
+       //cube = Physics::FluidCubeCreate(128, 0, .0001, 1);
+       //Physics::Init(cube);
 
 	}
 
@@ -82,7 +82,7 @@ namespace ParticleSimulation {
 		m_Shader->SetUniformMat4f("view", view);
 		m_Shader->SetUniform3f("camPos", m_Camera->Position);
 
-        Physics::RunDemo(cube);
+        //Physics::RunDemo(cube);
 
 		
 
